@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/hartzis/advent-of-code-2015#readme",
   "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-2": "^6.3.13",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.0.0",
     "tape": "^4.2.2"
   },
   "dependencies": {
