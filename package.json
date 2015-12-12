@@ -1,0 +1,27 @@
+{
+  "name": "advent-of-code-2015",
+  "version": "1.0.0",
+  "description": "advent of code 2015 attempts",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "day": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hartzis/advent-of-code-2015.git"
+  },
+  "author": "hartzis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hartzis/advent-of-code-2015/issues"
+  },
+  "homepage": "https://github.com/hartzis/advent-of-code-2015#readme",
+  "devDependencies": {
+    "tape": "^4.2.2"
+  },
+  "dependencies": {
+    "babel-register": "^6.3.13",
+    "yargs": "^3.31.0"
+  }
+}
