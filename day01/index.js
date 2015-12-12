@@ -1,11 +1,38 @@
 import data from './data.js';
 
-export function main(dataToProcess) {
-  const closings = dataToProcess.match(/\)/g);
-  const openings = dataToProcess.match(/\(/g);
-  const countClosings = closings ? -closings.length : 0;
-  const countOpenings = openings ? openings.length : 0;
-  return countOpenings + countClosings;
+function getUpOrDown(char) {
+  let val;
+  if (char.match(/\(/g)) {
+    val = 1;
+  } else if (char.match(/\)/g)) {
+    val = -1;
+  } else {
+    val = 0;
+  }
+  return val;
 }
 
-export default { one: main(data), two: 'nothing' };
+export function main(dataToProcess) {
+  let floor = 0;
+  for (let i = 0; i < dataToProcess.length; i++) {
+    floor += getUpOrDown(dataToProcess[i]);
+  }
+  return floor;
+}
+
+export function second(dataToProcess) {
+  let floor = 0;
+  let firstCharToTakeSantaIntoTheScaryBasement = null;
+  for (let i = 0; i < dataToProcess.length; i++) {
+    floor += getUpOrDown(dataToProcess[i]);
+    if (floor <= -1) {
+      firstCharToTakeSantaIntoTheScaryBasement = i + 1;
+      break;
+    }
+  }
+  return firstCharToTakeSantaIntoTheScaryBasement
+    ? firstCharToTakeSantaIntoTheScaryBasement
+    : 0;
+}
+
+export default { one: main(data), two: second(data) };
