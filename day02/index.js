@@ -22,6 +22,17 @@ export function getTotalPaperSizeFromDimensions(dimensions) {
   return getPaperSize(getDimensions(dimensions));
 }
 
+export function getBowRibbon({ l, w, h }) {
+  return l * w * h;
+}
+
+export function getTotalRibbon(dimensions) {
+  const dimesObj = getDimensions(dimensions);
+  let dimesArr = Object.keys(dimesObj).map((key)=>dimesObj[key]);
+  dimesArr = dimesArr.sort((a, b)=>a > b);
+  return (dimesArr[0] * 2) + (dimesArr[1] * 2) + getBowRibbon(dimesObj);
+}
+
 function main(allDimensions) {
   const splitDimensions = allDimensions.split('\n');
   return splitDimensions.reduce((totalWrapping, dimensions)=>{
@@ -29,4 +40,11 @@ function main(allDimensions) {
   }, 0);
 }
 
-export default { one: main(data), two: '?' };
+function second(allDimensions) {
+  const splitDimensions = allDimensions.split('\n');
+  return splitDimensions.reduce((totalRibbon, dimensions)=>{
+    return dimensions ? totalRibbon + getTotalRibbon(dimensions) : totalRibbon;
+  }, 0);
+}
+
+export default { one: main(data), two: second(data) };
