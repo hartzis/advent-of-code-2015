@@ -43,4 +43,30 @@ export function getTotalHouses(allDirections) {
   return Object.keys(getAllHousePositions(allDirections.split(''))).length;
 }
 
-export default { one: getTotalHouses(data), two: '?' };
+export function getAllHousePositionsBadSanta(directions) {
+  let housesPositions = { '0x0': 1 };
+  let currentPosSanta = { x: 0, y: 0 };
+  let currentPosBadSanta = { x: 0, y: 0 };
+  directions.forEach((dir, idx)=>{
+    let currentPosString;
+    if (idx % 2) {
+      currentPosSanta = getNewPosition(currentPosSanta, dir);
+      currentPosString = `${currentPosSanta.x}x${currentPosSanta.y}`;
+    } else {
+      currentPosBadSanta = getNewPosition(currentPosBadSanta, dir);
+      currentPosString = `${currentPosBadSanta.x}x${currentPosBadSanta.y}`;
+    }
+    if (housesPositions[currentPosString]) {
+      housesPositions[currentPosString]++;
+    } else {
+      housesPositions[currentPosString] = 1;
+    }
+  });
+  return housesPositions;
+}
+
+export function getTotalHousesBadSanta(allDirections) {
+  return Object.keys(getAllHousePositionsBadSanta(allDirections.split(''))).length;
+}
+
+export default { one: getTotalHouses(data), two: getTotalHousesBadSanta(data) };

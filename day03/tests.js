@@ -2,6 +2,7 @@ import test from 'tape';
 import {
   getNewPosition,
   getTotalHouses,
+  getTotalHousesBadSanta,
  } from './index';
 
 test('day 03 getNewPosition', (t)=> {
@@ -37,4 +38,20 @@ test('day 03 total houses count', (t)=> {
 
   n = getTotalHouses('^v^v^v^v^v><<<');
   t.equal(n, 5);
+});
+
+test('day 03 total houses with bad santa count', (t)=> {
+  t.plan(4);
+
+  let n = getTotalHousesBadSanta('^v');
+  t.equal(n, 3);
+
+  n = getTotalHousesBadSanta('^>v<');
+  t.equal(n, 3);
+
+  n = getTotalHousesBadSanta('^v><');
+  t.equal(n, 5);
+
+  n = getTotalHousesBadSanta('^v^v^v^v^v');
+  t.equal(n, 11);
 });
