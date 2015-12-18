@@ -13,3 +13,51 @@
 // You will not encounter any strings containing numbers.
 //
 // What is the sum of all numbers in the document?
+
+import fs from 'fs';
+
+const data = fs.readFileSync('./day12/input.txt').toString();
+
+function getType(thing) {
+  if (Array.isArray(thing)) {
+    return 'array';
+  } else if (typeof thing === 'string') {
+    return 'string';
+  } else if (typeof thing === 'number') {
+    return 'number';
+  } else if (typeof thing === 'object') {
+    return 'object';
+  }
+  console.log('whooaaa now elves!');
+  return 'crazy elves';
+}
+
+function checkForRedValue(obj) {
+  return Object.keys(obj).reduce((acc, key) => acc || obj[key] === 'red', false);
+}
+
+export function getTotal(item, noRed) {
+  switch (getType(item)) {
+    case 'array':
+      return item.reduce((acc, thing) => acc + getTotal(thing, noRed), 0);
+    case 'object':
+      if (noRed) {
+        if (checkForRedValue(item)) {
+          return 0;
+        }
+      }
+      return Object.keys(item).reduce((acc, key) => acc + getTotal(item[key], noRed), 0);
+    case 'string':
+      return isNaN(parseInt(item, 10)) ? 0 : parseInt(item, 10);
+    case 'number':
+      return item;
+    default:
+      console.log('crazy elves!');
+  }
+}
+
+export function getTotalNoRedObj(item) {
+  return getTotal(item, true);
+}
+
+export default { one: getTotal(JSON.parse(data)), two: getTotalNoRedObj(JSON.parse(data)) };
